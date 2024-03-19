@@ -12,13 +12,13 @@
 
     <div class="container mt-5 text-center">
 
-        <h1 class="mt-5 mb-5">Generatore di Password Sicure</h1>
+        <h1 class="mt-5 mb-5">Password Sicura Generata</h1>
         
-        <form class="d-flex flex-column align-items-center" method="GET" action="result.php">
-            <label class="mb-3" for="lenght">Lunghezza della Password:</label>
-            <input class="mb-3" type="number" id="lenght" name="lenght" min="8" max="64" required>
-            <button class="btn btn-outline-light" type="submit">Genera Password</button>
-        </form>
+        <?php
+        
+        include "./partials/functions.php"; 
+        
+        ?>
     </div>
 
     <!-- bootstrap -->
