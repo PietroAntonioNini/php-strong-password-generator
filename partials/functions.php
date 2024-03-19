@@ -1,32 +1,66 @@
 <?php
 
     //funzione per generare una password casuale
-    function generaPassword($lenght) {
+    function generaPassword($lenght, $useNumbers, $useLetters, $useSymbols, $allowRepetition) {
         
-        //caratteri disponibili per la password
-        $caratteri = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+{}|[]\';:"<>?,./';
+        // Definisco i caratteri disponibili per la password
+        $caratteri = '';
 
-        //genero la password casuale
+        // Aggiungo i caratteri in base alle opzioni selezionate dall'utente
+        if ($useNumbers) {
+            $caratteri .= '0123456789';
+        }
+        if ($useLetters) {
+            $caratteri .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        }
+        if ($useSymbols) {
+            $caratteri .= '!@#$%^&*()_+{}|[]\';:"<>?,./';
+        }
+
+        // Inizializzo un array che conterrà i caratteri disponibili
+        $caratteriArray = str_split($caratteri);
+
+        // Genero la password casuale
         $password = '';
-        $caratteriLunghezza = strlen($caratteri);
 
         for ($i = 0; $i < $lenght; $i++) {
-            $password .= $caratteri[rand(0, $caratteriLunghezza - 1)];
+
+            // Se non permettiamo ripetizioni, estraiamo caratteri unici
+            if (!$allowRepetition && count($caratteriArray) > 0) {
+                $randomIndex = array_rand($caratteriArray);
+                $password .= $caratteriArray[$randomIndex];
+
+                // Rimuoviamo il carattere estratto per evitare ripetizioni
+                unset($caratteriArray[$randomIndex]);
+
+                // Resetto gli indici dell'array
+                $caratteriArray = array_values($caratteriArray);
+                
+            } else {
+                // Se permettiamo ripetizioni o non ci sono più caratteri disponibili, scegliamo casualmente dai caratteri rimanenti
+                $password .= $caratteri[rand(0, strlen($caratteri) - 1)];
+            }
         }
 
         return $password;
     }
 
-    //verifico se è stato inviato il parametro "lunghezza" nel GET
+    // Verifico se sono stati inviati i parametri nel GET
     if (isset($_GET['lenght'])) {
 
-        //ottengo la lunghezza della password dal GET
+        // Ottengo la lunghezza della password dal GET
         $lunghezzaPassword = $_GET['lenght'];
 
-        //genero la password in base alla lunghezza
-        $passwordGenerata = generaPassword($lunghezzaPassword);
+        // Ottengo le opzioni selezionate dall'utente
+        $useNumbers = isset($_GET['useNumbers']);
+        $useLetters = isset($_GET['useLetters']);
+        $useSymbols = isset($_GET['useSymbols']);
+        $allowRepetition = isset($_GET['allowRepetition']);
 
-        //stampo in pagina la password generata
+        // Genero la password in base alle opzioni
+        $passwordGenerata = generaPassword($lunghezzaPassword, $useNumbers, $useLetters, $useSymbols, $allowRepetition);
+
+        // Stampo in pagina la password generata
         echo 
         "
         <p class='text-center mt-5 fs-4' >La tua password generata è:</p>

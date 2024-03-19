@@ -16,8 +16,29 @@
         
         <form class="d-flex flex-column align-items-center" method="GET" action="result.php">
             <label class="mb-3" for="lenght">Lunghezza della Password:</label>
-            <input class="mb-3" type="number" id="lenght" name="lenght" min="8" max="64" required>
-            <button class="btn btn-outline-light" type="submit">Genera Password</button>
+            <input class="mb-5" type="number" id="lenght" name="lenght" min="8" max="64" required>
+
+            <div class="mb-3">
+                <label for="useNumbers">Usa Numeri:</label>
+                <input type="checkbox" id="useNumbers" name="useNumbers">
+            </div>
+
+            <div class="mb-3">
+                <label for="useLetters">Usa Lettere:</label>
+                <input type="checkbox" id="useLetters" name="useLetters">
+            </div>
+
+            <div class="mb-3">
+                <label for="useSymbols">Usa Simboli:</label>
+                <input type="checkbox" id="useSymbols" name="useSymbols">
+            </div>
+
+            <div class="mb-5">
+                <label for="allowRepetition">Permetti Ripetizione:</label>
+                <input type="checkbox" id="allowRepetition" name="allowRepetition">
+            </div>
+
+            <button class="btn btn-outline-light mt-2" type="submit">Genera Password</button>
         </form>
     </div>
 
