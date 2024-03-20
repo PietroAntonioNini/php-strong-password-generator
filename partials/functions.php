@@ -3,6 +3,11 @@
     //funzione per generare una password casuale
     function generaPassword($lenght, $useNumbers, $useLetters, $useSymbols, $allowRepetition) {
         
+        // Se non è stata selezionata nessuna opzione, allora usiamo numeri, lettere e simboli
+        if (!$useNumbers && !$useLetters && !$useSymbols) {
+            $useNumbers = $useLetters = $useSymbols = true;
+        }
+
         // Definisco i caratteri disponibili per la password
         $caratteri = '';
 
